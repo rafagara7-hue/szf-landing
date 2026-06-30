@@ -88,10 +88,10 @@ export function Hero() {
           <span className="block text-ink">
             <SplitText
               text="Software sob medida"
-              by="char"
+              by="word"
               trigger="mount"
-              stagger={0.03}
-              delay={0.5}
+              stagger={0.08}
+              delay={0.4}
             />
           </span>
           <span className="mt-1 block overflow-hidden pb-2">
