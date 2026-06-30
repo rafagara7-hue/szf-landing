@@ -1,0 +1,399 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SZF systems — Design tokens
+   Imersivo / tech / premium. Near-black + iris (violet) + cyan.
+   ============================================================ */
+@theme {
+  /* Surfaces */
+  --color-void: #05060a;
+  --color-abyss: #04050c;
+  --color-panel: #0b0e16;
+  --color-panel-2: #0e121d;
+
+  /* Text */
+  --color-ink: #eceef4;
+  --color-mute: #9ba1b2;
+  --color-faint: #5c6276;
+
+  /* Brand */
+  --color-iris: #7c5cff;
+  --color-iris-bright: #a78bff;
+  --color-indigo: #4a37d6;
+  --color-cyan: #2de2e6;
+  --color-cyan-bright: #7af6f9;
+
+  /* Lines */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-soft: rgba(255, 255, 255, 0.05);
+
+  /* Fonts */
+  --font-display: var(--font-display), "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Container */
+  --spacing-shell: 1280px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* Lenis handles smoothing */
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  font-feature-settings: "ss01", "cv01", "cv11";
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-iris) 40%, transparent);
+  color: #fff;
+}
+
+/* Visible keyboard focus on every interactive element (WCAG 2.4.7).
+   `!important` to win over Tailwind's `outline-none` utility on inputs/selects.
+   Modern browsers follow border-radius on outline, so it looks right on pills. */
+:focus-visible {
+  outline: 2px solid #a78bff !important;
+  outline-offset: 2px !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-abyss);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-iris), var(--color-indigo));
+  border-radius: 999px;
+  border: 2px solid var(--color-abyss);
+}
+
+/* Hide native cursor on devices that have the custom one (desktop, fine pointer) */
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: none;
+  }
+}
+
+/* ============================================================
+   Layout helpers
+   ============================================================ */
+.shell {
+  width: 100%;
+  max-width: var(--spacing-shell);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ============================================================
+   Typography helpers
+   ============================================================ */
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    #fff 0%,
+    var(--color-iris-bright) 45%,
+    var(--color-cyan-bright) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-soft {
+  background: linear-gradient(180deg, var(--color-ink) 0%, var(--color-faint) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* mono eyebrow / kicker */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* ============================================================
+   Surfaces / glass
+   ============================================================ */
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.015)
+  );
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(12px);
+}
+.hairline {
+  border: 1px solid var(--color-line);
+}
+
+/* gradient ring border (for cards / chips) */
+.ring-grad {
+  position: relative;
+}
+.ring-grad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.02) 40%,
+    rgba(124, 92, 255, 0.35) 75%,
+    rgba(45, 226, 230, 0.3)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-mute);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-line);
+}
+
+/* spotlight card — uses --mx/--my set by JS */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 92, 255, 0.16),
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+   Backgrounds / FX
+   ============================================================ */
+.grid-lines {
+  background-image: linear-gradient(
+      to right,
+      var(--color-line-soft) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--color-line-soft) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.grid-dots {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+.mask-radial {
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 35%,
+    #000 35%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 35%,
+    #000 35%,
+    transparent 80%
+  );
+}
+.mask-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes gridPan {
+  to {
+    background-position: 0 -64px;
+  }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  33% { transform: translateY(-22px) translateX(10px); }
+  66% { transform: translateY(10px) translateX(-12px); }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.08); }
+}
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(2400%); }
+}
+@keyframes ticker {
+  0% { opacity: 0.25; }
+  50% { opacity: 1; }
+  100% { opacity: 0.25; }
+}
+
+.animate-grid-pan { animation: gridPan 5s linear infinite; }
+.animate-float { animation: float 7s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 16s ease-in-out infinite; }
+.animate-spin-slow { animation: spinSlow 22s linear infinite; }
+.animate-pulse-glow { animation: pulseGlow 6s ease-in-out infinite; }
+.animate-blink { animation: blink 1.4s steps(2) infinite; }
+
+.flow-gradient {
+  background-size: 200% 200%;
+  animation: gradientFlow 8s ease infinite;
+}
+
+/* shimmer sweep used on buttons */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  transform: translateX(-150%);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+}
+.shine:hover::after {
+  animation: shimmer 0.9s var(--ease-out-expo);
+}
+
+/* live status dot */
+.live-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-cyan);
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-cyan) 70%, transparent);
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--color-cyan);
+  animation: pulseGlow 2.4s ease-in-out infinite;
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
