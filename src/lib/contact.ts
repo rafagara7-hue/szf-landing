@@ -5,8 +5,7 @@
 // Número de WhatsApp no formato internacional (DDI 55 + DDD + número, só dígitos).
 export const WHATSAPP_NUMBER = "5516997512712"; // (16) 99751-2712
 
-// ⚠️ SUBSTITUA pelo seu e-mail real.
-export const CONTACT_EMAIL = "ola@szf.systems";
+export const CONTACT_EMAIL = "SZFsystems@gmail.com";
 
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Olá! Vim pelo site da SZF systems e quero tirar um projeto do papel.";
