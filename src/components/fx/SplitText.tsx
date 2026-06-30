@@ -93,7 +93,7 @@ export function SplitText({
               ))
             )}
           </span>
-          {wi < words.length - 1 && " "}
+          {wi < words.length - 1 && " "}
         </Fragment>
       ))}
     </motion.span>

@@ -33,6 +33,7 @@ type ButtonProps = {
   className?: string;
   arrow?: boolean;
   magnetic?: boolean;
+  external?: boolean;
   onClick?: () => void;
 };
 
@@ -44,6 +45,7 @@ export function Button({
   className,
   arrow = false,
   magnetic = false,
+  external = false,
   onClick,
 }: ButtonProps) {
   const content = (
@@ -58,7 +60,13 @@ export function Button({
   const cls = cn(base, variants[variant], sizes[size], className);
 
   const el = href ? (
-    <a href={href} onClick={onClick} className={cls}>
+    <a
+      href={href}
+      onClick={onClick}
+      className={cls}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
       {content}
     </a>
   ) : (

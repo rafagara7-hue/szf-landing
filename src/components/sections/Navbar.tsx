@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { label: "Vitrine", href: "#vitrine" },
   { label: "Projetos", href: "#projetos" },
   { label: "Benefícios", href: "#beneficios" },
   { label: "Processo", href: "#processo" },

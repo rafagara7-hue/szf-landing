@@ -1,6 +1,7 @@
 import { AuroraBackground } from "@/components/fx/AuroraBackground";
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
+import { LiveShowcase } from "@/components/sections/LiveShowcase";
 import { Projects } from "@/components/sections/Projects";
 import { Benefits } from "@/components/sections/Benefits";
 import { TechStack } from "@/components/sections/TechStack";
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <main className="relative">
         <Hero />
+        <LiveShowcase />
         <Projects />
         <Benefits />
         <TechStack />
