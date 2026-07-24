@@ -14,7 +14,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    if (reduce) return;
+    // Touch: scroll sintético briga com o nativo em WebViews (Instagram etc.)
+    // e causa saltos; o scroll nativo + scroll-margin das seções já resolve.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (reduce || coarse) return;
 
     gsap.registerPlugin(ScrollTrigger);
 

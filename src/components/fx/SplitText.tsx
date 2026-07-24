@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Fragment } from "react";
+import { useCoarsePointer } from "@/lib/useCoarsePointer";
 
 type SplitTextProps = {
   text: string;
@@ -30,20 +31,31 @@ export function SplitText({
 }: SplitTextProps) {
   const words = text.split(" ");
 
-  const container: Variants = {
-    hidden: {},
-    show: {
-      transition: { staggerChildren: stagger, delayChildren: delay },
-    },
-  };
+  // Touch: o rise escalonado por letra/palavra cria dezenas de camadas
+  // animadas e falha em WebViews — vira um fade único do bloco inteiro.
+  const coarse = useCoarsePointer();
 
-  const child: Variants = {
-    hidden: { y: "110%" },
-    show: {
-      y: "0%",
-      transition: { duration, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
+  const container: Variants = coarse
+    ? {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.5, delay } },
+      }
+    : {
+        hidden: {},
+        show: {
+          transition: { staggerChildren: stagger, delayChildren: delay },
+        },
+      };
+
+  const child: Variants = coarse
+    ? { hidden: { y: "0%" }, show: { y: "0%" } }
+    : {
+        hidden: { y: "110%" },
+        show: {
+          y: "0%",
+          transition: { duration, ease: [0.16, 1, 0.3, 1] },
+        },
+      };
 
   const animateProps =
     trigger === "mount"
@@ -55,6 +67,7 @@ export function SplitText({
 
   return (
     <motion.span
+      suppressHydrationWarning
       className={className}
       style={{ display: "inline-block" }}
       variants={container}
@@ -71,6 +84,7 @@ export function SplitText({
             {by === "word" ? (
               <span style={{ display: "inline-block", overflow: "hidden" }}>
                 <motion.span
+                  suppressHydrationWarning
                   variants={child}
                   style={{ display: "inline-block" }}
                 >
@@ -84,6 +98,7 @@ export function SplitText({
                   style={{ display: "inline-block", overflow: "hidden" }}
                 >
                   <motion.span
+                    suppressHydrationWarning
                     variants={child}
                     style={{ display: "inline-block" }}
                   >

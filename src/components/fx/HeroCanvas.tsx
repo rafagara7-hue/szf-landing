@@ -100,9 +100,14 @@ function Core() {
 
 /** 3D centerpiece for the hero. Rendered client-only (no SSR). */
 export default function HeroCanvas() {
+  // Menos pixels no touch: GPUs de celular (e o WebView do Instagram) piscam
+  // ao recompor o WebGL durante zoom/scroll com DPR alto.
+  const coarse =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
   return (
     <Canvas
-      dpr={[1, 1.8]}
+      dpr={coarse ? [1, 1.5] : [1, 1.8]}
       camera={{ position: [0, 0, 6], fov: 42 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       style={{ pointerEvents: "none" }}
