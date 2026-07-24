@@ -158,7 +158,7 @@ export function Contact() {
                         <div className="font-mono text-[0.6rem] uppercase tracking-wider text-faint">
                           {m.label}
                         </div>
-                        <div className="mt-0.5 text-sm text-ink">{m.value}</div>
+                        <div className="mt-0.5 break-words text-sm text-ink">{m.value}</div>
                       </div>
                     </div>
                   );

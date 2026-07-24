@@ -119,7 +119,7 @@ export function LiveShowcase() {
           description="Dois sistemas reais, rodando ao vivo. Passe o mouse para percorrer a tela — ou abra a demo e navegue você mesmo."
         />
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {DEMOS.map((d) => (
             <DemoCard key={d.url} d={d} />
           ))}

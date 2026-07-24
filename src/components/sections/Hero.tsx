@@ -78,10 +78,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="chip mb-8"
+          className="chip mb-8 whitespace-nowrap"
         >
           <span className="live-dot" />
-          <span>disponível para novos projetos · 2026</span>
+          <span className="text-[0.65rem] tracking-[0.08em] sm:text-[0.72rem] sm:tracking-[0.1em]">
+            disponível para novos projetos · 2026
+          </span>
         </motion.div>
 
         <h1 className="max-w-5xl font-display text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-[5.4rem]">
@@ -161,7 +163,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-faint"
+        className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint md:flex"
         aria-label="Rolar para projetos"
       >
         <span className="font-mono text-[0.62rem] uppercase tracking-[0.25em]">

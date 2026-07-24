@@ -82,7 +82,7 @@ export function Benefits() {
           description="A diferença entre contratar uma agência genérica e contratar engenharia de verdade aparece todos os dias depois da entrega."
         />
 
-        <div className="mt-16 grid auto-rows-[minmax(0,1fr)] gap-4 lg:grid-cols-6">
+        <div className="mt-16 grid grid-cols-1 gap-4 lg:auto-rows-[minmax(0,1fr)] lg:grid-cols-6">
           {BENEFITS.map((b, i) => (
             <Reveal key={b.title} delay={(i % 3) * 0.08} className={cn("h-full", b.span)}>
               <SpotlightCard
